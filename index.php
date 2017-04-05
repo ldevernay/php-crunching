@@ -13,27 +13,42 @@ foreach ($top10 as $key => $film) {
 }
 
 // echo $total_price;
-
-
+$top;
+$top_cle = [];
 // Les dix moins chers du top 100
+foreach ($top as $key => $value) {
+$value["cle"] = $key;
+  array_push($top_cle, $value);
+}
+
+
 function compare($a,$b){
   if ($a["im:price"]["attributes"]["amount"] == $b["im:price"]["attributes"]["amount"]){
-    return 0;
+    if ($a['cle'] > $b['cle']){
+      return 1;
+    } else if ($a['cle'] < $b['cle']){
+      return -1;
+    } return 0;
   }
 
   return ($a["im:price"]["attributes"]["amount"] < $b["im:price"]["attributes"]["amount"])?-1:1;
 }
-
-usort($top, 'compare');
+usort($top_cle, 'compare');
 
 // foreach ($top as $key => $film) {
 //   echo $film["im:name"]["label"]." : ".$film["im:price"]["attributes"]["amount"]."<br/>";
 // }
 
-$top10cheapest = array_slice($top, 0, 9);
-
-foreach ($top10cheapest as $key => $film) {
-  echo $film["im:name"]["label"]." : ".$film["im:price"]["attributes"]["amount"]."<br/>";
+foreach ($top_cle as $key => $film) {
+  echo $film["cle"].". ".$film["im:name"]["label"]." : ".$film["im:price"]["attributes"]["amount"]."<br/>";
 }
 
- ?>
+echo "<hr/>";
+
+$top10cheapest = array_slice($top_cle, 0, 9);
+
+foreach ($top10cheapest as $key => $film) {
+  echo $film["cle"].". ".$film["im:name"]["label"]." : ".$film["im:price"]["attributes"]["amount"]."<br/>";
+}
+
+?>
