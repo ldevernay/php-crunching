@@ -45,7 +45,7 @@ foreach ($top_cle as $key => $film) {
 
 echo "<hr/>";
 
-$top10cheapest = array_slice($top_cle, 0, 9);
+$top10cheapest = array_slice($top_cle, 0, 10);
 
 foreach ($top10cheapest as $key => $film) {
   echo $film["cle"].". ".$film["im:name"]["label"]." : ".$film["im:price"]["attributes"]["amount"]."<br/>";
